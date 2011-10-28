@@ -1,5 +1,6 @@
 enchant();
 
+var game;
 window.onload = function() {
 	function nodeXCenter(node) {
 		return game.width / 2 - node.width / 2;
@@ -20,14 +21,35 @@ window.onload = function() {
 		return bear;
 	}
 	
+    function showResult(ans_flag) {
+        var scene = new Scene();         var ans = new Sprite(200, 200);
+        
+        ans.x = nodeXCenter(ans);
+        ans.y = nodeYCenter(ans);
+		ans.image = game.assets['ans.png'];
+        if (ans_flag) {             ans.frame = 0;
+        } else {
+            ans.frame = 1;
+        }
+        
+        ans.addEventListener('touchstart', function (e) {
+            game.popScene();             if (ans_flag) {
+                game.popScene();
+            }
+        });
+        
+        scene.addChild(ans);
+        
+        game.pushScene(scene);
+    }
+    
 	function oneChoice(answer) {
 		var choice = new MutableText(0, 0, 113, 16);
 		choice.text = answer;
 		choice.x = nodeXCenter(choice);
 		choice.y = nodeYCenter(choice);
 		choice.y = choice.y + 50;
-		choice.addEventListener('touchstart', function () {
-			game.popScene();
+		choice.addEventListener('touchstart', function () {             showResult(true);
 		});
 		return choice;
 	}
@@ -48,10 +70,10 @@ window.onload = function() {
 		wrong_choice.y = 0;
 		
 		answer_choice.addEventListener('touchstart', function () {
-			game.popScene();
+            showResult(true);
 		});
 		wrong_choice.addEventListener('touchstart', function () {
-			//
+            showResult(false);
 		});
 		
 		var choice = new Group();
@@ -77,7 +99,7 @@ window.onload = function() {
 	
 	game = new Game(320, 320);
     game.fps = 24;
-    game.preload('font.png', 'chara1.gif');
+    game.preload('font.png', 'chara1.gif', 'ans.png');
     game.onload = function() {
     	function lesson1() {
     		var scene = new Scene();
