@@ -1,5 +1,5 @@
-enchant();
-
+﻿enchant();
+//test
 var game;
 window.onload = function() {
 	function nodeXCenter(node) {
