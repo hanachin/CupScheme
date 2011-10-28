@@ -89,6 +89,59 @@ window.onload = function() {
 		return choice;
 	}
 	
+    function fourChoice(answer, wrong1, wrong2, wrong3) {
+		var answer_choice = new MutableText(0, 0, answer.length * 16 + 5, 16);
+		var wrong_choice1 = new MutableText(0, 0, wrong1.length * 16 + 5, 16);
+		var wrong_choice2 = new MutableText(0, 0, wrong2.length * 16 + 5, 16);
+		var wrong_choice3 = new MutableText(0, 0, wrong3.length * 16 + 5, 16);
+		
+		answer_choice.text = answer;
+		wrong_choice1.text = wrong1;
+		wrong_choice2.text = wrong2;
+		wrong_choice3.text = wrong3;
+		
+		var both_width1 = answer_choice.width + wrong_choice1.width + 20;	// 20px space
+		var both_width2 = wrong_choice2.width + wrong_choice3.width + 20;	// 20px space
+		var both_width = Math.max(both_width1, both_width2);
+        
+		answer_choice.x = 0;
+		wrong_choice1.x = answer_choice.width + 20;
+		wrong_choice2.x = 0;
+		wrong_choice3.x = wrong_choice1.width + 20;
+		
+		answer_choice.y = 0;
+		wrong_choice1.y = 0;
+		wrong_choice2.y = 16;
+		wrong_choice3.y = 16;
+		
+		answer_choice.addEventListener('touchstart', function () {
+            showResult(true);
+		});
+		wrong_choice1.addEventListener('touchstart', function () {
+            showResult(false);
+		});
+		wrong_choice2.addEventListener('touchstart', function () {
+            showResult(false);
+		});
+		wrong_choice3.addEventListener('touchstart', function () {
+            showResult(false);
+		});
+		
+		var choice = new Group();
+		choice.width = both_width;
+		choice.height = answer_choice.height;
+		
+		choice.x = (game.width - both_width) / 2;
+		choice.y = nodeYCenter(choice) + 50;
+		
+		choice.addChild(answer_choice);
+		choice.addChild(wrong_choice1);
+		choice.addChild(wrong_choice2);
+		choice.addChild(wrong_choice3);
+		
+		return choice;
+    }
+    
 	function question(q) {
 		var label = new Label(q);
 		label.x = 10;
@@ -138,7 +191,26 @@ window.onload = function() {
     		return scene;
     	}
     	
+        function lesson3() {
+            var scene = new Scene();
+            
+            var bg = new Sprite(320, 320);
+            scene.addChild(bg);
+            
+            var bear = walkCenteredBear();
+            scene.addChild(bear);
+            
+            var q = question("次のうち3にならないのはどれ?");
+            scene.addChild(q);
+            
+            var choice = fourChoice("(+ 0 -3)", "(* 1 3)", "(+ 2 1)", "(/ 9 3)");
+            scene.addChild(choice);
+            
+            return scene;
+        }
+        
     	function init() {
+            game.pushScene(lesson3());
     		game.pushScene(lesson2());
     		game.pushScene(lesson1());
     	}
