@@ -149,20 +149,6 @@ window.onload = function() {
 		wrong_choice2 = wrapInButton(wrong_choice2);
 		wrong_choice3 = wrapInButton(wrong_choice3);
 		
-		var both_width1 = answer_choice.width + wrong_choice1.width + 20;	// 20px space
-		var both_width2 = wrong_choice2.width + wrong_choice3.width + 20;	// 20px space
-		var both_width = Math.max(both_width1, both_width2);
-        
-		answer_choice.x = 0;
-		wrong_choice1.x = answer_choice.width + 20;
-		wrong_choice2.x = 0;
-		wrong_choice3.x = wrong_choice1.width + 20;
-		
-		answer_choice.y = 0;
-		wrong_choice1.y = 0;
-		wrong_choice2.y = 32;
-		wrong_choice3.y = 32;
-		
 		answer_choice.addEventListener('touchstart', function () {
             showResult(true);
 		});
@@ -176,19 +162,25 @@ window.onload = function() {
             showResult(false);
 		});
 		
-		var choice = new Group();
-		choice.width = both_width;
-		choice.height = answer_choice.height;
+        var choices = [answer_choice, wrong_choice1, wrong_choice2, wrong_choice3];
+        choices.shuffle();
+        
+        choices[0].x = 0;
+		choices[1].x = 0;
+		choices[2].x = 0;
+		choices[3].x = 0;
 		
-		choice.x = (game.width - both_width) / 2;
-		choice.y = nodeYCenter(choice) + 50;
+		choices[0].y = 0;
+		choices[1].y = 32;
+		choices[2].y = 64;
+		choices[3].y = 96;
 		
-		choice.addChild(answer_choice);
-		choice.addChild(wrong_choice1);
-		choice.addChild(wrong_choice2);
-		choice.addChild(wrong_choice3);
-		
-		return choice;
+		var ret = new Group();
+        ret.x = 8;
+		ret.y = 192;
+        choices.forEach(function (x) {             ret.addChild(x);
+        });
+		return ret;
     }
     
 	function question(q) {
