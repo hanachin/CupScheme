@@ -95,7 +95,7 @@ window.onload = function() {
 		return choice;
 	}
 	
-	function twoChoice(answer, wrong) {
+	function twoChoices(answer, wrong) {
 		var answer_choice = new MutableText(0, 0, 113, 16);
 		var wrong_choice = new MutableText(0, 0, 113, 16);
 		
@@ -133,7 +133,7 @@ window.onload = function() {
 		return choice;
 	}
 	
-    function fourChoice(answer, wrong1, wrong2, wrong3) {
+    function fourChoices(answer, wrong1, wrong2, wrong3) {
 		var answer_choice = new MutableText(0, 0, answer.length * 16 + 5, 16);
 		var wrong_choice1 = new MutableText(0, 0, wrong1.length * 16 + 5, 16);
 		var wrong_choice2 = new MutableText(0, 0, wrong2.length * 16 + 5, 16);
@@ -227,7 +227,7 @@ window.onload = function() {
     		var q = question("次のうち足して3になるのはどれ?");
     		scene.addChild(q);
     		
-    		var choice = twoChoice("(+ 1 2)", "(+ 2 2)");
+    		var choice = twoChoices("(+ 1 2)", "(+ 2 2)");
     		scene.addChild(choice);
     		return scene;
     	}
@@ -244,7 +244,7 @@ window.onload = function() {
             var q = question("次のうち3にならないのはどれ?");
             scene.addChild(q);
             
-            var choice = fourChoice("(+ 0 -3)", "(* 1 3)", "(+ 2 1)", "(/ 9 3)");
+            var choice = fourChoices("(+ 0 -3)", "(* 1 3)", "(+ 2 1)", "(/ 9 3)");
             scene.addChild(choice);
             
             return scene;
