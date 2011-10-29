@@ -54,9 +54,39 @@ window.onload = function() {
         game.pushScene(scene);
     }
     
+    function wrapInButton(choice) {
+        var button = new Group();
+        var w = choice.text.length * 16 + 8 + 8;
+        var h = choice.height + 8 + 8;
+        button.width = w;
+        button.height = h;
+        
+        var pushed_color = 'lightgreen';
+        var released_color = 'green';
+        var bg = new Sprite(w, h);
+        bg.backgroundColor = released_color;
+        button.addChild(bg);
+        
+        button.addEventListener('touchstart', function (e) {             console.log('button touchstart');
+            bg.backgroundColor = pushed_color;
+        });
+        
+        button.addEventListener('touchend', function (e) {
+            console.log('button touchend');
+            bg.backgroundColor = released_color;
+        });
+        
+        choice.x = 8;
+        choice.y = 8;
+        button.addChild(choice);
+        
+        return button;
+    }
+    
 	function oneChoice(answer) {
 		var choice = new MutableText(0, 0, 113, 16);
 		choice.text = answer;
+        choice = wrapInButton(choice);
 		choice.x = nodeXCenter(choice);
 		choice.y = nodeYCenter(choice);
 		choice.y = choice.y + 50;
@@ -72,6 +102,9 @@ window.onload = function() {
 		answer_choice.text = answer;
 		wrong_choice.text = wrong;
 		
+        answer_choice = wrapInButton(answer_choice);
+        wrong_choice = wrapInButton(wrong_choice);
+        
 		var both_width = answer_choice.width + wrong_choice.width + 20;	// 20px space
 		
 		answer_choice.x = 0;
@@ -111,6 +144,11 @@ window.onload = function() {
 		wrong_choice2.text = wrong2;
 		wrong_choice3.text = wrong3;
 		
+        answer_choice = wrapInButton(answer_choice);
+		wrong_choice1 = wrapInButton(wrong_choice1);
+		wrong_choice2 = wrapInButton(wrong_choice2);
+		wrong_choice3 = wrapInButton(wrong_choice3);
+		
 		var both_width1 = answer_choice.width + wrong_choice1.width + 20;	// 20px space
 		var both_width2 = wrong_choice2.width + wrong_choice3.width + 20;	// 20px space
 		var both_width = Math.max(both_width1, both_width2);
@@ -122,8 +160,8 @@ window.onload = function() {
 		
 		answer_choice.y = 0;
 		wrong_choice1.y = 0;
-		wrong_choice2.y = 16;
-		wrong_choice3.y = 16;
+		wrong_choice2.y = 32;
+		wrong_choice3.y = 32;
 		
 		answer_choice.addEventListener('touchstart', function () {
             showResult(true);
