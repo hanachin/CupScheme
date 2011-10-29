@@ -107,8 +107,13 @@ window.onload = function() {
         
 		var both_width = answer_choice.width + wrong_choice.width + 20;	// 20px space
 		
-		answer_choice.x = 0;
-		wrong_choice.x = answer_choice.width + 20;
+        if (Math.random() > 0.5) {
+            answer_choice.x = 0;
+            wrong_choice.x = answer_choice.width + 20;
+        } else {
+            wrong_choice.x = 0;
+            answer_choice.x = wrong_choice.width + 20;
+        }
 		
 		answer_choice.y = 0;
 		wrong_choice.y = 0;
