@@ -53,7 +53,7 @@ window.onload = function() {
         
         game.pushScene(scene);
     }
-    
+
     function wrapInButton(choice) {
         var button = new Group();
         var w = choice.text.length * 16 + 8 + 8;
@@ -83,10 +83,14 @@ window.onload = function() {
         return button;
     }
     
+    function text(s) {
+        var t = new MutableText(0, 0, 0, 0);
+        t.text = s;
+        return t;
+    }
+    
 	function oneChoice(answer) {
-		var choice = new MutableText(0, 0, 113, 16);
-		choice.text = answer;
-        choice = wrapInButton(choice);
+		var choice = wrapInButton(text(answer));
 		choice.x = nodeXCenter(choice);
 		choice.y = nodeYCenter(choice);
 		choice.y = choice.y + 50;
@@ -94,18 +98,11 @@ window.onload = function() {
 		});
 		return choice;
 	}
-	
+
 	function twoChoices(answer, wrong) {
-		var answer_choice = new MutableText(0, 0, 113, 16);
-		var wrong_choice = new MutableText(0, 0, 113, 16);
-		
-		answer_choice.text = answer;
-		wrong_choice.text = wrong;
-		
-        answer_choice = wrapInButton(answer_choice);
-        wrong_choice = wrapInButton(wrong_choice);
-        
-		var both_width = answer_choice.width + wrong_choice.width + 20;	// 20px space
+		var answer_choice = wrapInButton(text(answer));
+		var wrong_choice = wrapInButton(text(wrong));
+		var both_width = answer_choice.width + wrong_choice.width + 20;
 		
         if (Math.random() > 0.5) {
             answer_choice.x = 0;
@@ -137,23 +134,13 @@ window.onload = function() {
 		
 		return choice;
 	}
-	
+
     function fourChoices(answer, wrong1, wrong2, wrong3) {
-		var answer_choice = new MutableText(0, 0, answer.length * 16 + 5, 16);
-		var wrong_choice1 = new MutableText(0, 0, wrong1.length * 16 + 5, 16);
-		var wrong_choice2 = new MutableText(0, 0, wrong2.length * 16 + 5, 16);
-		var wrong_choice3 = new MutableText(0, 0, wrong3.length * 16 + 5, 16);
-		
-		answer_choice.text = answer;
-		wrong_choice1.text = wrong1;
-		wrong_choice2.text = wrong2;
-		wrong_choice3.text = wrong3;
-		
-        answer_choice = wrapInButton(answer_choice);
-		wrong_choice1 = wrapInButton(wrong_choice1);
-		wrong_choice2 = wrapInButton(wrong_choice2);
-		wrong_choice3 = wrapInButton(wrong_choice3);
-		
+		var answer_choice = wrapInButton(text(answer));
+		var wrong_choice1 = wrapInButton(text(wrong1));
+		var wrong_choice2 = wrapInButton(text(wrong2));
+		var wrong_choice3 = wrapInButton(text(wrong2));
+        
 		answer_choice.addEventListener('touchstart', function () {
             showResult(true);
 		});
