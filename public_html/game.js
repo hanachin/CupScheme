@@ -84,7 +84,7 @@ window.onload = function() {
     }
 
     function text(s) {
-        var t = new MutableText(0, 0, 0, 0);
+        var t = new MutableText(0, 0, s.length * 16, 0);
         t.text = s;
         return t;
     }
