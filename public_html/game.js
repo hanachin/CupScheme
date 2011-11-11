@@ -183,14 +183,14 @@ window.onload = function() {
 		return label;
 	}
 	
-	game = new Game(320, 320);
+	game = new Game(600, 480);
     game.fps = 24;
     game.preload('font.png', 'chara1.gif', 'ans.png');
     game.onload = function() {
     	function lesson1() {
     		var scene = new Scene();
     		
-    		var bg = new Sprite(320, 320);
+    		var bg = new Sprite(game.width, game.height);
     		bg.backgroundColor = '#fff';
     		scene.addChild(bg);
     		
@@ -209,7 +209,7 @@ window.onload = function() {
     	function lesson2() {
     		var scene = new Scene();
     		
-    		var bg = new Sprite(320, 320);
+    		var bg = new Sprite(game.width, game.height);
     		bg.backgroundColor = '#fff';
     		scene.addChild(bg);
     		
@@ -227,7 +227,7 @@ window.onload = function() {
         function lesson3() {
             var scene = new Scene();
             
-            var bg = new Sprite(320, 320);
+            var bg = new Sprite(game.width, game.height);
             scene.addChild(bg);
             
             var bear = walkCenteredBear();
